@@ -4,6 +4,9 @@ block content
     h1= title
     ul
         for user in users
-            li= user
+            li
+                span= user
+                br
+                a(href="users/#{user.account_name}/books") Books list
         else
             li sorry, no users!

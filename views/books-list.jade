@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title
+    ul
+        for book in books
+            li= book
+        else
+            li sorry, no books!

@@ -1,8 +1,8 @@
 import User from "../schemas/user";
 
-const userController = {};
+const controller = {};
 
-userController.getUsersPage = function (req, res) {
+controller.getUsersPage = function (req, res) {
     return User.find(function(err, users) {
         if (!err) {
             res.render("users-list", {users: users, title: "Users list"});
@@ -12,7 +12,7 @@ userController.getUsersPage = function (req, res) {
     });
 };
 
-userController.getUsers = function (req, res){
+controller.getUsers = function (req, res){
     return User.find(function (err, users) {
         if (!err) {
             res.send(users);
@@ -22,7 +22,7 @@ userController.getUsers = function (req, res){
     });
 };
 
-userController.getUsersById = function(req, res){
+controller.getUsersById = function(req, res){
     return User.find({account_name:req.params.account_name},function(err,users){
         if (!err) {
             res.send(users);
@@ -32,7 +32,7 @@ userController.getUsersById = function(req, res){
     });
 };
 
-userController.addUser = function(req, res) {
+controller.addUser = function(req, res) {
     const data = req.body;
     const newUser = new User({
         firstname: data.firstname,
@@ -46,12 +46,11 @@ userController.addUser = function(req, res) {
             res.send(data.email + " - created");
         } else {
             res.send(err);
-            return console.log(err);
         }
     });
 };
 
-userController.updateUser = function(req, res) {
+controller.updateUser = function(req, res) {
     //@todo account_name updater
     return User.findOneAndUpdate({account_name:req.params.account_name}, {$set: req.body}, {new: true}, function(err,user){
         if (!err) {
@@ -62,7 +61,7 @@ userController.updateUser = function(req, res) {
     });
 }
 
-userController.deleteUser = function(req, res) {
+controller.deleteUser = function(req, res) {
     return User.findOneAndRemove({account_name:req.params.account_name}, function(err,user){
         if (!err) {
             res.send(user.account_name + " - deleted");
@@ -72,4 +71,4 @@ userController.deleteUser = function(req, res) {
     });
 };
 
-export default userController;
+export default controller;
